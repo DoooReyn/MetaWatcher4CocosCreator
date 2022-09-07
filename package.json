@@ -57,6 +57,7 @@
     "@vscode/test-electron": "^2.1.5"
   },
   "dependencies": {},
+  "publisher": "Reyn5Teens7",
   "repository": {
     "type": "git",
     "url": "https://github.com/DoooReyn/MetaWatcher4CocosCreator"
