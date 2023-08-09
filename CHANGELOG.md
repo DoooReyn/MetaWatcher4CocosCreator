@@ -1,3 +1,5 @@
 # Change Log
 
-All notable changes to the "movescriptforcocoscreator" extension will be documented in this file.
+## v0.0.3 (2023.08.09)
+
+- [feature] 增加对 v3 版本的支持

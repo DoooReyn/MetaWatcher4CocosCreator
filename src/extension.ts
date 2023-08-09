@@ -1,6 +1,6 @@
 // The module 'vscode' contains the VS Code extensibility API
 // Import the module and reference it with the alias vscode in your code below
-import { existsSync } from 'fs';
+import { existsSync, readFileSync } from 'fs';
 import { join } from 'path';
 import * as vscode from 'vscode';
 import { debug } from './DebugLog';
@@ -14,13 +14,33 @@ function watch() {
     for (let folder of vscode.workspace.workspaceFolders) {
       if (!MataWatcher.getInstance().watching) {
         const root = folder.uri.fsPath;
-        const declaration = join(root, 'creator.d.ts');
+        const v2 = join(root, 'project.json');
+        const v3 = join(root, 'package.json');
         const assets = join(root, 'assets');
         debug(`正在检查工作区文件夹: ${root}`);
-        if (existsSync(declaration) && existsSync(assets)) {
-          vscode.window.showInformationMessage(`正在侦听目录: ${assets}`);
-          MataWatcher.getInstance().watch(assets);
+
+        if (!existsSync(assets)) {
+          continue;
         }
+
+        if (existsSync(v2)) {
+          const json = JSON.parse(readFileSync(v2, 'utf-8'));
+          const ok = 'engine' in json && 'id' in json;
+          if (!ok) {
+            continue;
+          }
+        }
+
+        if (existsSync(v3)) {
+          const json = JSON.parse(readFileSync(v3, 'utf-8'));
+          const ok = 'uuid' in json && 'creator' in json;
+          if (!ok) {
+            continue;
+          }
+        }
+
+        vscode.window.showInformationMessage(`正在侦听目录: ${assets}`);
+        MataWatcher.getInstance().watch(assets);
       }
     }
   }

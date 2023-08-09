@@ -2,7 +2,7 @@
   "name": "movescriptforcocoscreator",
   "displayName": "Cocos Creator .meta 文件同步辅助工具",
   "description": "Meta Watcher For Cocos Creator",
-  "version": "0.0.1",
+  "version": "0.0.3",
   "license": "MIT",
   "engines": {
     "vscode": "^1.71.0"
@@ -31,6 +31,8 @@
   },
   "scripts": {
     "vscode:prepublish": "npm run package",
+    "vscode:package": "vsce package",
+    "vscode:publish": "vsce publish",
     "compile": "webpack",
     "watch": "webpack --watch",
     "package": "webpack --mode production --devtool hidden-source-map",
